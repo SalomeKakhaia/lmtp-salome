@@ -68,6 +68,7 @@ estimate_tmle <- function(natural, shifted, trt, outcome, node_list, cens,
     )
 
     if (control$.return_full_fits) {
+      print(fit)
       fits[[t]] <- fit
     } else {
       fits[[t]] <- extract_sl_weights(fit)
