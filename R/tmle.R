@@ -37,9 +37,10 @@ cf_tmle <- function(task, outcome, ratios, learners, control, pb) {
 
 estimate_tmle <- function(natural, shifted, trt, outcome, node_list, cens,
                           risk, tau, outcome_type, ratios, weights, learners, control, pb) {
+  print("---")
   m_natural_train <- m_shifted_train <- matrix(nrow = nrow(natural$train), ncol = tau)
   m_natural_valid <- m_shifted_valid <- matrix(nrow = nrow(natural$valid), ncol = tau)
-
+  
   fits <- vector("list", length = tau)
   for (t in tau:1) {
     i  <- censored(natural$train, cens, t)$i
@@ -66,9 +67,8 @@ estimate_tmle <- function(natural, shifted, trt, outcome, node_list, cens,
       id = natural$train[i & rt,][["lmtp_id"]],
       control$.learners_outcome_folds
     )
-
+    print(fit)
     if (control$.return_full_fits) {
-      print(fit)
       fits[[t]] <- fit
     } else {
       fits[[t]] <- extract_sl_weights(fit)
