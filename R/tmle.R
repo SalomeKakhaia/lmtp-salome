@@ -68,11 +68,12 @@ estimate_tmle <- function(natural, shifted, trt, outcome, node_list, cens,
       control$.learners_outcome_folds
     )
     print(fit)
-    if (control$.return_full_fits) {
-      fits[[t]] <- fit
-    } else {
-      fits[[t]] <- extract_sl_weights(fit)
-    }
+    fits[[t]] <- fit
+    # if (control$.return_full_fits) {
+    #   fits[[t]] <- fit
+    # } else {
+    #   fits[[t]] <- extract_sl_weights(fit)
+    # }
 
     if (length(trt) > 1) {
       trt_t <- trt[[t]]
